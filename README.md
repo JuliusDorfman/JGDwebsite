@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Julius Dorfman's Portfolio
 
-## Getting Started
+<!-- ABOUT THE PROJECT -->
 
-First, run the development server:
+## <a href="https://juliusdorfman.com/">JuliusDorfman.com</a>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Hi. I'm Julius Dorfman. Customer Enablement Software Engineer and Developer.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This site hold the bookmarks of my life in: projects, articles, and career history.
+<br />
+While you're here, thank you for being a part of it.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Built With
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+ ![Nextjs]
+ ![Javascript]
+ ![HTML5]
+ ![CSS]
+ ![GITHUB]
+ ![AWS]
 
-## Learn More
+<!-- CONTACT -->
 
-To learn more about Next.js, take a look at the following resources:
+## Contact
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+[![LinkedIn][linkedin-shield]][linkedin-url]
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+<!-- MARKDOWN LINKS & IMAGES -->
 
-## Deploy on Vercel
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/juliusgdorfman
+[Javascript]: https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E
+[CSS]: https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white
+[HTML5]: https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white
+[AWS]: https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white
+[GITHUB]: https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white
