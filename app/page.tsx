@@ -1,64 +1,151 @@
-import Image from "next/image";
+// app/page.tsx
+
+"use client";
+
+import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
+
+const ROUTES: Record<string, string> = {
+  blog: "/blog",
+  github: "https://github.com/JuliusDorfman",
+};
 
 export default function Home() {
+  const router = useRouter();
+  const [typingDone, setTypingDone] = useState(false);
+  const [userInput, setUserInput] = useState("");
+  const [error, setError] = useState("");
+  const [showHelp, setShowHelp] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setTypingDone(true), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleSubmit = useCallback(
+    (input: string) => {
+      const trimmed = input.trim().toLowerCase();
+
+      if (trimmed === "?" || trimmed === "help") {
+        setShowHelp(true);
+        setError("");
+        setUserInput("");
+        return;
+      }
+
+      setShowHelp(false);
+      const dest = ROUTES[trimmed];
+
+      if (dest) {
+        if (dest.startsWith("http")) {
+          window.open(dest, "_blank", "noopener,noreferrer");
+        } else {
+          router.push(dest);
+        }
+      } else {
+        setError(`command not found: "${trimmed}".\ntype "?" or "help" for available commands`);
+        setUserInput("");
+      }
+    },
+    [router]
+  );
+
+  useEffect(() => {
+    if (!typingDone) return;
+
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Enter") {
+        handleSubmit(userInput);
+      } else if (e.key === "Backspace") {
+        setUserInput((prev) => prev.slice(0, -1));
+        setError("");
+        setShowHelp(false);
+      } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
+        setUserInput((prev) => prev + e.key);
+        setError("");
+        setShowHelp(false);
+      }
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [typingDone, userInput, handleSubmit]);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="home-page scanlines crt-flicker">
+      <main className="home-main">
+        <div className="home-status text-glow">
+          <div className="typing-text">&gt; system online</div>
+          {typingDone && (
+            <>
+              {error && <div className="prompt-error">{error}</div>}
+              {showHelp && (
+                <div className="prompt-help">
+                  <div>available commands:</div>
+                  <div>&nbsp; blog &nbsp; &nbsp;- read the blog</div>
+                  <div>&nbsp; github &nbsp;- view program author</div>
+                  <div>&nbsp; ? | help - show this message</div>
+                </div>
+              )}
+              <div className="prompt-line">
+                &gt; goto {userInput}
+                <span className="cursor">_</span>
+              </div>
+            </>
+          )}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+
+        <div
+          className="home-content-wrapper"
+          onClick={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const ripple = document.createElement("span");
+            ripple.className = "ripple";
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            e.currentTarget.appendChild(ripple);
+            ripple.addEventListener("animationend", () => ripple.remove());
+
+            const blemish = document.createElement("span");
+            blemish.className = "blemish";
+            blemish.style.left = `${x}px`;
+            blemish.style.top = `${y}px`;
+            const size = 4 + Math.random() * 6;
+            const scaleX = 0.6 + Math.random() * 0.8;
+            const scaleY = 0.6 + Math.random() * 0.8;
+            const rotate = Math.random() * 360;
+            const opacity = 0.3 + Math.random() * 0.4;
+            blemish.style.width = `${size}px`;
+            blemish.style.height = `${size}px`;
+            blemish.style.transform = `translate(-50%, -50%) scale(${scaleX}, ${scaleY}) rotate(${rotate}deg)`;
+            blemish.style.opacity = `${opacity}`;
+            e.currentTarget.appendChild(blemish);
+          }}
+        >
+          <div className="home-content">
+            <h1 className="home-title text-glow">Julius Dorfman</h1>
+            <p className="home-subtitle text-glow-sm">
+              I can help you with all things web
+            </p>
+          </div>
+        </div>
+
+        <nav className="home-nav">
+          <a className="home-nav-link" href="/blog">
+            ./blog
+          </a>
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            className="home-nav-link"
+            href="https://github.com/JuliusDorfman"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+            ./github
           </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+        </nav>
       </main>
     </div>
   );

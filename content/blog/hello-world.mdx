@@ -1,0 +1,47 @@
+---
+title: "Hello World"
+description: "First post on the new blog — testing MDX rendering and the hacker theme."
+date: "2026-02-11"
+tags: ["meta", "nextjs"]
+---
+
+# AI from the Perspective of a Customer Engineer 
+
+<span className="blog-lead-big">**First:**</span> <span className="blog-lead-small">**Addressing the fear.**</span>
+
+## Code example
+
+Here is a block of code:
+
+```ts
+function greet(name: string): string {
+  return `Hello, ${name}!`;
+}
+```
+
+## What is MDX?
+
+MDX lets you write JSX inside markdown. That means you can embed React components
+directly in blog posts when needed.
+
+> This is a blockquote to test styling.
+
+- List item one
+- List item two
+- List item three
+
+
+How I Use AI as a Customer Engineer
+When you're supporting enterprise clients with SLA requirements, you don't have time for AI hallucinations. But used correctly, AI has become one of my most valuable tools for translating complex technical issues into solutions customers can actually use.
+The Translation Problem
+At Builder.io, I supported enterprise clients integrating our SDK across React, Next.js, Angular, and Vue applications. The challenge wasn't just solving technical problems - it was explaining them to stakeholders who needed to understand why their deployment failed without needing a CS degree.
+AI helps me draft these explanations, but I never use them verbatim. Instead, I use AI to generate a first pass, then refine it based on what I know about the customer's technical level. The "dishes and recipes" analogy I use for Docker concepts? That came from iterating on AI-generated explanations until I found something that actually clicked with non-technical enterprise customers.
+Troubleshooting at Scale
+Where AI really shines: parsing error logs and identifying patterns across customer tickets. When a client sends a 200-line stack trace, I can paste it into AI, get a hypothesis about the root cause, then verify it against the actual codebase. This cuts initial triage time significantly.
+But here's the catch - AI often confidently suggests solutions for versions of frameworks that don't exist or misunderstands SDK-specific behavior. I've learned to treat AI outputs as starting points, not answers. My job is knowing when the suggestion makes sense and when to ignore it entirely.
+Learning Fast, Staying Accurate
+I used AI heavily when learning SQL for my current job search. My approach: work through SQLZoo exercises, attempt solutions myself, then ask AI to explain what I got wrong. This builds actual understanding instead of just copy-pasting queries.
+The same applies to ramping up on unfamiliar frameworks. When a customer has an issue in Angular (which I use less frequently), AI helps me quickly understand the framework-specific context. But I always validate against official docs before responding to the customer.
+The Bottom Line
+AI is a force multiplier for customer engineering work - but only if you know when to trust it and when to verify. It helps me move faster on routine explanations and initial troubleshooting, which frees up time for the complex issues that actually require human judgment.
+For enterprise SLA clients, being fast matters. Being wrong is worse.
