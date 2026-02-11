@@ -30,6 +30,7 @@ While you're here, thank you for being a part of it.
 
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
+[Nextjs]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/juliusgdorfman
 [Javascript]: https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E
