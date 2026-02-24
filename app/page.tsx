@@ -76,23 +76,19 @@ export default function Home() {
       <main className="home-main">
         <div className="home-status text-glow">
           <div className="typing-text">&gt; system online</div>
-          {typingDone && (
-            <>
-              {error && <div className="prompt-error">{error}</div>}
-              {showHelp && (
-                <div className="prompt-help">
-                  <div>available commands:</div>
-                  <div>&nbsp; blog &nbsp; &nbsp;- read the blog</div>
-                  <div>&nbsp; github &nbsp;- view program author</div>
-                  <div>&nbsp; ? | help - show this message</div>
-                </div>
-              )}
-              <div className="prompt-line">
-                &gt; goto {userInput}
-                <span className="cursor">_</span>
-              </div>
-            </>
+          {error && typingDone && <div className="prompt-error">{error}</div>}
+          {showHelp && typingDone && (
+            <div className="prompt-help">
+              <div>available commands:</div>
+              <div>&nbsp; blog &nbsp; &nbsp;- read the blog</div>
+              <div>&nbsp; github &nbsp;- view program author</div>
+              <div>&nbsp; ? | help - show this message</div>
+            </div>
           )}
+          <div className="prompt-line" style={{ visibility: typingDone ? "visible" : "hidden" }}>
+            &gt; goto {userInput}
+            <span className="cursor">_</span>
+          </div>
         </div>
 
         <div
@@ -127,9 +123,8 @@ export default function Home() {
         >
           <div className="home-content">
             <h1 className="home-title text-glow">Julius Dorfman</h1>
-            <p className="home-subtitle text-glow-sm">
-              I can help you with all things web
-            </p>
+            {/* <p className="home-subtitle text-glow-sm">
+            </p> */}
           </div>
         </div>
 

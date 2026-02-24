@@ -23,7 +23,10 @@ export default function RootLayout({
       <body
         className={`${inter.className} antialiased`}
       >
-        {children}
+        <div className="hud-bg" aria-hidden="true" />
+        <div className="page-content">
+          {children}
+        </div>
       </body>
     </html>
   );
