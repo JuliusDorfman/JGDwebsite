@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllPosts, getPost } from "@/lib/blog";
+import BlogStyleToggle, { NeonProvider } from "../BlogStyleToggle";
 
 type Params = { slug: string[] };
 
@@ -39,33 +40,36 @@ export default async function BlogPostPage({
   if (!post) notFound();
 
   return (
-    <div className="blog-page">
-      <header className="blog-header">
-        <a href="/blog" className="blog-back-link">
-          &larr; back to blog
-        </a>
-      </header>
+    <NeonProvider>
+      <div className="blog-page">
+        <header className="blog-header">
+          <a href="/blog" className="blog-back-link">
+            &larr; back to blog
+          </a>
+          <BlogStyleToggle />
+        </header>
 
-      <article className="blog-article">
-        <div className="blog-article-header">
-          <time className="blog-post-date">{post.date}</time>
-          <h1 className="blog-article-title">{post.title}</h1>
-          <p className="blog-article-description">{post.description}</p>
-          {post.tags.length > 0 && (
-            <div className="blog-post-tags">
-              {post.tags.map((tag) => (
-                <span key={tag} className="blog-tag">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
+        <article className="blog-article">
+          <div className="blog-article-header">
+            <time className="blog-post-date">{post.date}</time>
+            <h1 className="blog-article-title support-team">{post.title}</h1>
+            <p className="blog-article-description neon-cyan">{post.description}</p>
+            {post.tags.length > 0 && (
+              <div className="blog-post-tags">
+                {post.tags.map((tag) => (
+                  <span key={tag} className="blog-tag">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
 
-        <div className="blog-content">
-          <MDXRemote source={post.content} />
-        </div>
-      </article>
-    </div>
+          <div className="blog-content">
+            <MDXRemote source={post.content} />
+          </div>
+        </article>
+      </div>
+    </NeonProvider>
   );
 }

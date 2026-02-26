@@ -240,3 +240,252 @@
   font-weight: 600;
   color: #d4d4d4;
 }
+
+/* ========================================
+   Blog — neon accent utilities
+   ======================================== */
+
+/* Glowing inline text accents */
+.neon-green {
+  color: #00ff41;
+  text-shadow: 0 0 6px rgba(0, 255, 65, 0.6), 0 0 14px rgba(0, 255, 65, 0.25);
+}
+
+.neon-cyan {
+  color: #00d4ff;
+  text-shadow: 0 0 6px rgba(0, 212, 255, 0.6), 0 0 14px rgba(0, 212, 255, 0.25);
+}
+
+.neon-purple {
+  color: #bf00ff;
+  text-shadow: 0 0 6px rgba(191, 0, 255, 0.6), 0 0 14px rgba(191, 0, 255, 0.25);
+}
+
+.neon-white {
+  color: #fff;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.4), 0 0 14px rgba(255, 255, 255, 0.15);
+}
+
+/* Keyword with neon underline via ::after */
+.blog-highlight {
+  position: relative;
+  display: inline;
+  color: #e8e8e8;
+  font-weight: 600;
+}
+
+.blog-highlight::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #00ff41, #00d4ff);
+  box-shadow: 0 0 6px rgba(0, 255, 65, 0.5), 0 0 12px rgba(0, 212, 255, 0.3);
+  border-radius: 1px;
+}
+
+/* Purple variant underline */
+.blog-highlight-purple {
+  position: relative;
+  display: inline;
+  color: #e8e8e8;
+  font-weight: 600;
+}
+
+.blog-highlight-purple::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #bf00ff, #00d4ff);
+  box-shadow: 0 0 6px rgba(191, 0, 255, 0.5), 0 0 12px rgba(0, 212, 255, 0.3);
+  border-radius: 1px;
+}
+
+/* Neon horizontal rule — replaces boring hr */
+.blog-neon-rule {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00ff41, #00d4ff, #bf00ff, transparent);
+  box-shadow: 0 0 8px rgba(0, 255, 65, 0.3), 0 0 16px rgba(0, 212, 255, 0.15);
+  margin: 2.5rem 0;
+}
+
+/* Big stat number treatment */
+.blog-stat {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #00d4ff;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.6), 0 0 25px rgba(0, 212, 255, 0.25);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.blog-stat-green {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #00ff41;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.6), 0 0 25px rgba(0, 255, 65, 0.25);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.blog-stat-purple {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #bf00ff;
+  text-shadow: 0 0 10px rgba(191, 0, 255, 0.6), 0 0 25px rgba(191, 0, 255, 0.25);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* Callout box with glowing left edge */
+.blog-callout {
+  position: relative;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-left: 3px solid #00d4ff;
+  background: rgba(0, 212, 255, 0.04);
+  padding: 1.5rem 1.5rem 1.5rem 2rem;
+  margin: 2rem 0;
+  border-radius: 0 4px 4px 0;
+  box-shadow: -4px 0 15px rgba(0, 212, 255, 0.1), inset 0 0 20px rgba(0, 212, 255, 0.03);
+}
+
+.blog-callout::before {
+  content: ">";
+  position: absolute;
+  top: 1.25rem;
+  left: 0.65rem;
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #00d4ff;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+  opacity: 0.7;
+}
+
+/* Warning/challenge variant */
+.blog-callout-warn {
+  position: relative;
+  border: 1px solid rgba(255, 65, 65, 0.2);
+  border-left: 3px solid #ff4141;
+  background: rgba(255, 65, 65, 0.04);
+  padding: 1.5rem 1.5rem 1.5rem 2rem;
+  margin: 2rem 0;
+  border-radius: 0 4px 4px 0;
+  box-shadow: -4px 0 15px rgba(255, 65, 65, 0.1), inset 0 0 20px rgba(255, 65, 65, 0.03);
+}
+
+.blog-callout-warn::before {
+  content: "!";
+  position: absolute;
+  top: 1.25rem;
+  left: 0.65rem;
+  font-family: monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ff4141;
+  text-shadow: 0 0 8px rgba(255, 65, 65, 0.6);
+}
+
+/* Section label — small uppercase with neon dot ::before */
+.blog-section-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #00d4ff;
+  margin-bottom: 0.25rem;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.blog-section-label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #00d4ff;
+  box-shadow: 0 0 6px #00d4ff, 0 0 12px rgba(0, 212, 255, 0.4);
+}
+
+/* Green variant label */
+.blog-section-label-green {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #00ff41;
+  margin-bottom: 0.25rem;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.blog-section-label-green::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #00ff41;
+  box-shadow: 0 0 6px #00ff41, 0 0 12px rgba(0, 255, 65, 0.4);
+}
+
+/* Big pull quote — centered, oversized, glowing */
+.blog-pull-quote {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #e8e8e8;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  margin: 2.5rem 0;
+  position: relative;
+  line-height: 1.5;
+}
+
+.blog-pull-quote::before,
+.blog-pull-quote::after {
+  content: "";
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.5), transparent);
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+}
+
+.blog-pull-quote::before {
+  top: 0;
+}
+
+.blog-pull-quote::after {
+  bottom: 0;
+}
+
+/* Inline dim/muted text */
+.blog-dim {
+  color: #666;
+}
+
+/* Large question text for rhetorical effect */
+.blog-question {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #e8e8e8;
+  line-height: 1.5;
+}

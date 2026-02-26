@@ -198,15 +198,15 @@ body {
   padding: 4rem 3rem;
   box-sizing: border-box;
   position: relative;
-  border: 2px solid var(--purple);
+  border: 2px solid rgba(180, 190, 200, 0.3);
   border-radius: 4px;
   box-shadow:
-    0 0 15px rgba(191, 0, 255, 0.5),
-    0 0 40px rgba(191, 0, 255, 0.2),
-    inset 0 0 30px rgba(191, 0, 255, 0.05);
+    0 0 15px rgba(180, 190, 200, 0.15),
+    0 0 40px rgba(180, 190, 200, 0.06),
+    inset 0 0 30px rgba(180, 190, 200, 0.03);
 }
 
-/* Purple corner brackets on the console frame */
+/* Corner brackets on the console frame — subtle gray */
 .home-main::before,
 .home-main::after {
   content: "";
@@ -219,17 +219,17 @@ body {
 .home-main::before {
   top: -6px;
   left: -6px;
-  border-top: 3px solid var(--purple);
-  border-left: 3px solid var(--purple);
-  box-shadow: -3px -3px 12px rgba(191, 0, 255, 0.7);
+  border-top: 3px solid rgba(180, 190, 200, 0.45);
+  border-left: 3px solid rgba(180, 190, 200, 0.45);
+  box-shadow: -3px -3px 12px rgba(180, 190, 200, 0.2);
 }
 
 .home-main::after {
   bottom: -6px;
   right: -6px;
-  border-bottom: 3px solid var(--purple);
-  border-right: 3px solid var(--purple);
-  box-shadow: 3px 3px 12px rgba(191, 0, 255, 0.7);
+  border-bottom: 3px solid rgba(180, 190, 200, 0.45);
+  border-right: 3px solid rgba(180, 190, 200, 0.45);
+  box-shadow: 3px 3px 12px rgba(180, 190, 200, 0.2);
 }
 
 .home-status {
@@ -557,6 +557,7 @@ body {
   --blog-surface: rgba(255, 255, 255, 0.03);
   --blog-border: rgba(255, 255, 255, 0.08);
 
+  position: relative;
   max-width: 720px;
   margin: 0 auto;
   padding: 3rem 1.5rem 6rem;
@@ -802,4 +803,479 @@ body {
   font-size: 1.15rem;
   font-weight: 600;
   color: #d4d4d4;
+}
+
+/* ========================================
+   Blog — neon accent utilities
+   ======================================== */
+
+/* Glowing inline text accents */
+.neon-green {
+  color: #00ff41;
+  text-shadow: 0 0 6px rgba(0, 255, 65, 0.6), 0 0 14px rgba(0, 255, 65, 0.25);
+}
+
+.neon-cyan {
+  color: #00d4ff;
+  text-shadow: 0 0 6px rgba(0, 212, 255, 0.6), 0 0 14px rgba(0, 212, 255, 0.25);
+}
+
+.neon-purple {
+  color: #bf00ff;
+  text-shadow: 0 0 6px rgba(191, 0, 255, 0.6), 0 0 14px rgba(191, 0, 255, 0.25);
+}
+
+.neon-white {
+  color: #fff;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.4), 0 0 14px rgba(255, 255, 255, 0.15);
+}
+
+.neon-red {
+  color: #ff4141;
+  text-shadow: 0 0 6px rgba(255, 65, 65, 0.6), 0 0 14px rgba(255, 65, 65, 0.25);
+}
+
+/* Keyword with neon underline via ::after */
+.blog-highlight {
+  position: relative;
+  display: inline;
+  color: #e8e8e8;
+  font-weight: 600;
+}
+
+.blog-highlight::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #00ff41, #00d4ff);
+  box-shadow: 0 0 6px rgba(0, 255, 65, 0.5), 0 0 12px rgba(0, 212, 255, 0.3);
+  border-radius: 1px;
+}
+
+/* Purple variant underline */
+.blog-highlight-purple {
+  position: relative;
+  display: inline;
+  color: #e8e8e8;
+  font-weight: 600;
+}
+
+.blog-highlight-purple::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #bf00ff, #00d4ff);
+  box-shadow: 0 0 6px rgba(191, 0, 255, 0.5), 0 0 12px rgba(0, 212, 255, 0.3);
+  border-radius: 1px;
+}
+
+/* Neon horizontal rule — replaces boring hr */
+.blog-neon-rule {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00ff41, #00d4ff, #bf00ff, transparent);
+  box-shadow: 0 0 8px rgba(0, 255, 65, 0.3), 0 0 16px rgba(0, 212, 255, 0.15);
+  margin: 2.5rem 0;
+}
+
+/* Big stat number treatment */
+.blog-stat {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #00d4ff;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.6), 0 0 25px rgba(0, 212, 255, 0.25);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.blog-stat-green {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #00ff41;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.6), 0 0 25px rgba(0, 255, 65, 0.25);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.blog-stat-purple {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #bf00ff;
+  text-shadow: 0 0 10px rgba(191, 0, 255, 0.6), 0 0 25px rgba(191, 0, 255, 0.25);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* Callout box with glowing left edge */
+.blog-callout {
+  position: relative;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-left: 3px solid #00d4ff;
+  background: rgba(0, 212, 255, 0.04);
+  padding: 1.5rem 1.5rem 1.5rem 2rem;
+  margin: 2rem 0;
+  border-radius: 0 4px 4px 0;
+  box-shadow: -4px 0 15px rgba(0, 212, 255, 0.1), inset 0 0 20px rgba(0, 212, 255, 0.03);
+}
+
+.blog-callout::before {
+  content: ">";
+  position: absolute;
+  top: 1.25rem;
+  left: 0.65rem;
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #00d4ff;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+  opacity: 0.7;
+}
+
+/* Warning/challenge variant */
+.blog-callout-warn {
+  position: relative;
+  border: 1px solid rgba(255, 65, 65, 0.2);
+  border-left: 3px solid #ff4141;
+  background: rgba(255, 65, 65, 0.04);
+  padding: 1.5rem 1.5rem 1.5rem 2rem;
+  margin: 2rem 0;
+  border-radius: 0 4px 4px 0;
+  box-shadow: -4px 0 15px rgba(255, 65, 65, 0.1), inset 0 0 20px rgba(255, 65, 65, 0.03);
+}
+
+.blog-callout-warn::before {
+  content: "!";
+  position: absolute;
+  top: 1.25rem;
+  left: 0.65rem;
+  font-family: monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ff4141;
+  text-shadow: 0 0 8px rgba(255, 65, 65, 0.6);
+}
+
+/* Section label — small uppercase with neon dot ::before */
+.blog-section-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #00d4ff;
+  margin-bottom: 0.25rem;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.blog-section-label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #00d4ff;
+  box-shadow: 0 0 6px #00d4ff, 0 0 12px rgba(0, 212, 255, 0.4);
+}
+
+/* Green variant label */
+.blog-section-label-green {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #00ff41;
+  margin-bottom: 0.25rem;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.blog-section-label-green::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #00ff41;
+  box-shadow: 0 0 6px #00ff41, 0 0 12px rgba(0, 255, 65, 0.4);
+}
+
+/* Big pull quote — centered, oversized, glowing */
+.blog-pull-quote {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #e8e8e8;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  margin: 2.5rem 0;
+  position: relative;
+  line-height: 1.5;
+}
+
+.blog-pull-quote::before,
+.blog-pull-quote::after {
+  content: "";
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.5), transparent);
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+}
+
+.blog-pull-quote::before {
+  top: 0;
+}
+
+.blog-pull-quote::after {
+  bottom: 0;
+}
+
+/* Inline dim/muted text */
+.blog-dim {
+  color: #666;
+}
+
+/* Large question text for rhetorical effect */
+.blog-question {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #e8e8e8;
+  line-height: 1.5;
+}
+
+/* Support Team identity marker — used when "Support" refers to the team, not the concept */
+.support-team {
+  color: #f0b060;
+  font-weight: 600;
+  text-shadow: 0 0 6px rgba(240, 176, 96, 0.4), 0 0 14px rgba(240, 176, 96, 0.15);
+  position: relative;
+  display: inline;
+}
+
+.support-team::before {
+  content: "[";
+  color: rgba(240, 176, 96, 0.4);
+  font-weight: 400;
+  margin-right: 1px;
+}
+
+.support-team::after {
+  content: "]";
+  color: rgba(240, 176, 96, 0.4);
+  font-weight: 400;
+  margin-left: 1px;
+}
+
+h1.support-team {
+  display: block;
+}
+
+/* ========================================
+   Blog Style Toggle — fixed switch
+   ======================================== */
+
+.blog-style-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  background: rgba(10, 10, 20, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.3s, box-shadow 0.3s, opacity 0.3s, transform 0.3s;
+}
+
+/* Inline version — sits inside the blog header */
+.blog-style-toggle--inline {
+  margin-left: auto;
+}
+
+.blog-header {
+  display: flex;
+  align-items: center;
+}
+
+/* Fixed version — bottom-right, hidden by default */
+.blog-style-toggle--fixed {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+.blog-style-toggle--fixed.blog-style-toggle--visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.blog-style-toggle:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.blog-style-toggle--on {
+  border-color: rgba(0, 255, 65, 0.3);
+  box-shadow: 0 0 12px rgba(0, 255, 65, 0.15);
+}
+
+.blog-style-toggle--on:hover {
+  border-color: rgba(0, 255, 65, 0.5);
+  box-shadow: 0 0 18px rgba(0, 255, 65, 0.25);
+}
+
+.blog-style-toggle__label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #666;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.blog-style-toggle--on .blog-style-toggle__label {
+  color: #00ff41;
+  text-shadow: 0 0 6px rgba(0, 255, 65, 0.5);
+}
+
+.blog-style-toggle__track {
+  width: 28px;
+  height: 14px;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  position: relative;
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.blog-style-toggle--on .blog-style-toggle__track {
+  background: rgba(0, 255, 65, 0.15);
+  border-color: rgba(0, 255, 65, 0.4);
+  box-shadow: inset 0 0 6px rgba(0, 255, 65, 0.2);
+}
+
+.blog-style-toggle__knob {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #666;
+  transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+}
+
+.blog-style-toggle--on .blog-style-toggle__knob {
+  transform: translateX(14px);
+  background: #00ff41;
+  box-shadow: 0 0 6px rgba(0, 255, 65, 0.6), 0 0 12px rgba(0, 255, 65, 0.3);
+}
+
+/* ========================================
+   Neon Disabled — neutralize all accents
+   ======================================== */
+
+.neon-disabled .neon-green,
+.neon-disabled .neon-cyan,
+.neon-disabled .neon-purple,
+.neon-disabled .neon-white,
+.neon-disabled .neon-red {
+  color: inherit;
+  text-shadow: none;
+}
+
+.neon-disabled .blog-highlight,
+.neon-disabled .blog-highlight-purple {
+  color: inherit;
+  font-weight: inherit;
+}
+
+.neon-disabled .blog-highlight::after,
+.neon-disabled .blog-highlight-purple::after {
+  display: none;
+}
+
+.neon-disabled .blog-dim {
+  color: inherit;
+}
+
+.neon-disabled .blog-stat,
+.neon-disabled .blog-stat-green,
+.neon-disabled .blog-stat-purple {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  text-shadow: none;
+}
+
+.neon-disabled .support-team {
+  color: inherit;
+  text-shadow: none;
+  font-weight: inherit;
+}
+
+.neon-disabled .support-team::before,
+.neon-disabled .support-team::after {
+  content: none;
+}
+
+.neon-disabled .blog-neon-rule {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+
+.neon-disabled .blog-callout,
+.neon-disabled .blog-callout-warn {
+  border-color: rgba(255, 255, 255, 0.08);
+  border-left-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: none;
+}
+
+.neon-disabled .blog-callout::before,
+.neon-disabled .blog-callout-warn::before {
+  color: rgba(255, 255, 255, 0.3);
+  text-shadow: none;
+}
+
+.neon-disabled .blog-pull-quote::before,
+.neon-disabled .blog-pull-quote::after {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+
+.neon-disabled .blog-section-label,
+.neon-disabled .blog-section-label-green {
+  color: #999 !important;
+}
+
+.neon-disabled .blog-section-label::before,
+.neon-disabled .blog-section-label-green::before {
+  background: #999;
+  box-shadow: none;
+}
+
+.neon-disabled .blog-lead-big,
+.neon-disabled .blog-lead-small {
+  color: #e8e8e8;
 }
