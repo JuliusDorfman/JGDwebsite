@@ -9,13 +9,17 @@ export function NeonProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const saved = localStorage.getItem("blog-neon-styles");
-    if (saved === "off") setEnabled(false);
+    if (saved === "off") {
+      setEnabled(false);
+      document.body.classList.add("neon-disabled");
+    }
   }, []);
 
   const toggle = () => {
     setEnabled((prev) => {
       const next = !prev;
       localStorage.setItem("blog-neon-styles", next ? "on" : "off");
+      document.body.classList.toggle("neon-disabled", !next);
       return next;
     });
   };

@@ -1279,3 +1279,13 @@ h1.support-team {
 .neon-disabled .blog-lead-small {
   color: #e8e8e8;
 }
+
+/* Kill the HUD background sweep when neon is off (body-level class) */
+body.neon-disabled .hud-bg::after {
+  animation: none;
+  opacity: 0;
+}
+
+body.neon-disabled .hud-bg {
+  opacity: 0.3;
+}
