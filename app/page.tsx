@@ -31,7 +31,7 @@ export default async function Home() {
                 GitHub
               </a>
               <a
-                href="https://linkedin.com/in/juliusdorfman"
+                href="https://linkedin.com/in/juliusgdorfman"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="home-nav-link"
