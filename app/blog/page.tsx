@@ -11,11 +11,12 @@ export default async function BlogIndexPage() {
 
   return (
     <div className="blog-page">
+      <div className="page-slug">./blog</div>
       <header className="blog-header">
         <a href="/" className="blog-back-link">
           &larr; back
         </a>
-        <h1 className="blog-page-title">./blog</h1>
+
         <p className="blog-page-subtitle">
           Thoughts on web development and technology.
         </p>

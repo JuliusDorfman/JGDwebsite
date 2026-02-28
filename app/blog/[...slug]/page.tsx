@@ -42,6 +42,7 @@ export default async function BlogPostPage({
   return (
     <NeonProvider>
       <div className="blog-page">
+        <div className="page-slug">./blog/{slug.join("/")}</div>
         <header className="blog-header">
           <a href="/blog" className="blog-back-link">
             &larr; back to blog
