@@ -117,7 +117,7 @@ body {
   );
   -webkit-mask-size: 300% 300%;
   mask-size: 300% 300%;
-  animation: diag-sweep 10s ease-in-out infinite;
+  /* animation: diag-sweep 10s ease-in-out infinite; */
   pointer-events: none;
 }
 
