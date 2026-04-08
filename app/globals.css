@@ -11,6 +11,10 @@
   font-display: swap;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   --background: #0a0a14;
   --foreground: #00ff41;
@@ -1348,6 +1352,10 @@ h1.support-team {
 .neon-disabled .blog-lead-big,
 .neon-disabled .blog-lead-small {
   color: #e8e8e8;
+}
+
+.neon-disabled .blog-content a {
+  color: inherit;
 }
 
 /* Kill the HUD background sweep when neon is off (body-level class) */
