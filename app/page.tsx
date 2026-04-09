@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { getAllPosts } from "@/lib/blog";
+import SubscribeButton from "./components/SubscribeButton";
 
 export const metadata: Metadata = {
   title: "Julius Dorfman",
@@ -69,6 +70,8 @@ export default async function Home() {
           </a>
         ))}
       </main>
+
+      <SubscribeButton />
     </div>
   );
 }
