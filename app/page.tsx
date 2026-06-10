@@ -1,5 +1,6 @@
 import { Metadata } from "next";
-import { getAllPosts } from "@/lib/blog";
+import Link from "next/link";
+import { getTimeline } from "@/lib/timeline";
 import SubscribeButton from "./components/SubscribeButton";
 
 export const metadata: Metadata = {
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const posts = await getAllPosts();
+  const items = await getTimeline();
 
   return (
     <div className="blog-page">
@@ -44,30 +45,31 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* Blog post listing */}
+      {/* Timeline feed — blog posts, project releases, etc. */}
       <main className="blog-post-list">
-        {posts.length === 0 && (
-          <p className="blog-empty">No posts yet. Check back soon.</p>
+        {items.length === 0 && (
+          <p className="blog-empty">Nothing here yet. Check back soon.</p>
         )}
-        {posts.map((post) => (
-          <a
-            key={post.slug}
-            href={`/blog/${post.slug}`}
-            className="blog-post-card"
-          >
-            <time className="blog-post-date">{post.date}</time>
-            <h2 className="blog-post-title">{post.title}</h2>
-            <p className="blog-post-description">{post.description}</p>
-            {post.tags.length > 0 && (
+        {items.map((item) => (
+          <Link key={item.href} href={item.href} className="blog-post-card">
+            <time className="blog-post-date">{item.date}</time>
+            <h2 className="blog-post-title">
+              <span className={`timeline-label timeline-label-${item.type}`}>
+                {item.label}:
+              </span>{" "}
+              {item.title}
+            </h2>
+            <p className="blog-post-description">{item.description}</p>
+            {item.tags.length > 0 && (
               <div className="blog-post-tags">
-                {post.tags.map((tag) => (
+                {item.tags.map((tag) => (
                   <span key={tag} className="blog-tag">
                     {tag}
                   </span>
                 ))}
               </div>
             )}
-          </a>
+          </Link>
         ))}
       </main>
 

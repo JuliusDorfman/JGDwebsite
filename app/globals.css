@@ -719,6 +719,23 @@ body {
   margin: 0.25rem 0;
 }
 
+/* Timeline type prefix — "Blog Post:" / "Project Release:" */
+.timeline-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  vertical-align: 0.1em;
+}
+
+.timeline-label-blog {
+  color: var(--purple-dim);
+}
+
+.timeline-label-project {
+  color: var(--cyan-dim);
+}
+
 .blog-post-description {
   color: var(--blog-text-secondary);
   font-size: 0.9375rem;
@@ -1429,4 +1446,326 @@ body.neon-disabled .hud-bg {
   color: var(--foreground-dim);
   opacity: 0.5;
   margin: 0.75rem 0 0 0;
+}
+
+/* ========================================
+   Loading Screen — console boot panel
+   ======================================== */
+
+.loading-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.loading-console {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  padding: 2.25rem 2.5rem;
+  background: rgba(10, 10, 20, 0.6);
+  border: 1px solid rgba(0, 255, 65, 0.25);
+  border-radius: 4px;
+  box-shadow:
+    inset 0 0 40px rgba(0, 255, 65, 0.06),
+    0 0 20px rgba(0, 255, 65, 0.12),
+    0 0 40px rgba(191, 0, 255, 0.06);
+  font-family: "Retro Gaming", monospace;
+  color: var(--neon-green);
+  animation: loading-flicker 3.5s infinite;
+}
+
+/* Corner brackets — same vocabulary as .home-content-wrapper */
+.loading-console::before,
+.loading-console::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.loading-console::before {
+  top: 6px;
+  left: 6px;
+  border-top: 2px solid var(--neon-green);
+  border-left: 2px solid var(--neon-green);
+  box-shadow: -2px -2px 8px rgba(0, 255, 65, 0.4);
+}
+
+.loading-console::after {
+  bottom: 6px;
+  right: 6px;
+  border-bottom: 2px solid var(--neon-green);
+  border-right: 2px solid var(--neon-green);
+  box-shadow: 2px 2px 8px rgba(0, 255, 65, 0.4);
+}
+
+.loading-status-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cyan-dim);
+  padding-left: 1rem;
+  position: relative;
+  margin-bottom: 1.25rem;
+}
+
+.loading-status-tag::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 6px var(--cyan), 0 0 12px rgba(0, 212, 255, 0.4);
+  animation: loading-pulse 1.3s ease-in-out infinite;
+}
+
+.loading-log {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.75rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+
+.loading-line {
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  margin: 0;
+  opacity: 0;
+  animation: loading-line-in 0.25s ease-out forwards;
+}
+
+.loading-line--delayed-1 {
+  animation-delay: 0.35s;
+}
+
+.loading-line--delayed-2 {
+  animation-delay: 0.7s;
+}
+
+.loading-line--delayed-3 {
+  animation-delay: 1.05s;
+}
+
+.loading-prompt {
+  color: var(--purple);
+  text-shadow: 0 0 6px rgba(191, 0, 255, 0.5);
+}
+
+.loading-cmd {
+  color: var(--foreground-dim);
+}
+
+.loading-ok {
+  color: var(--neon-green);
+  text-shadow: var(--neon-glow-sm);
+  min-width: 4.5rem;
+}
+
+.loading-pending {
+  color: var(--cyan);
+  text-shadow: var(--cyan-glow-sm);
+  min-width: 4.5rem;
+  animation: loading-pending-flicker 0.9s steps(2, end) infinite;
+}
+
+.loading-cursor {
+  display: inline-block;
+  margin-left: 0.15rem;
+  color: var(--neon-green);
+  animation: blink 1s step-end infinite;
+}
+
+/* Progress bar — fills with the same purple -> cyan -> purple gradient used
+   on .home-nav-link::after, plus a brighter sweep that loops on top. */
+.loading-bar {
+  position: relative;
+  height: 6px;
+  background: rgba(0, 255, 65, 0.06);
+  border: 1px solid rgba(0, 255, 65, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+}
+
+.loading-bar-fill {
+  position: absolute;
+  inset: 0;
+  width: 0;
+  background: linear-gradient(90deg, var(--purple), var(--cyan), var(--purple));
+  box-shadow: 0 0 8px var(--purple), 0 0 15px rgba(191, 0, 255, 0.5);
+  animation: loading-bar-fill 1.6s ease-out 0.1s forwards;
+}
+
+.loading-bar-sweep {
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
+  animation: loading-bar-sweep 1.4s linear infinite;
+}
+
+.loading-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.loading-meta-label {
+  color: var(--neon-green);
+  text-shadow: var(--neon-glow-sm);
+}
+
+.loading-meta-dim {
+  color: var(--foreground-dim);
+  opacity: 0.6;
+}
+
+.loading-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes loading-line-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes loading-bar-fill {
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes loading-bar-sweep {
+  from {
+    left: -40%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes loading-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.4);
+  }
+}
+
+@keyframes loading-pending-flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes loading-flicker {
+  0%, 100% { opacity: 1; }
+  5% { opacity: 0.85; }
+  6% { opacity: 1; }
+  18% { opacity: 0.88; }
+  19% { opacity: 1; }
+  55% { opacity: 0.86; }
+  56% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-console,
+  .loading-line,
+  .loading-pending,
+  .loading-bar-fill,
+  .loading-bar-sweep,
+  .loading-status-tag::before,
+  .loading-cursor {
+    animation: none;
+  }
+  .loading-line {
+    opacity: 1;
+  }
+  .loading-bar-fill {
+    width: 100%;
+  }
+}
+
+/* Strip neon/purple/cyan accents when neon mode is off (matches the rest of
+   the .neon-disabled overrides below). */
+.neon-disabled .loading-console {
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+  color: #d4d4d4;
+  animation: none;
+}
+
+.neon-disabled .loading-console::before,
+.neon-disabled .loading-console::after {
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: none;
+}
+
+.neon-disabled .loading-prompt,
+.neon-disabled .loading-ok,
+.neon-disabled .loading-pending,
+.neon-disabled .loading-cursor,
+.neon-disabled .loading-meta-label,
+.neon-disabled .loading-status-tag {
+  color: inherit;
+  text-shadow: none;
+  animation: none;
+}
+
+.neon-disabled .loading-status-tag::before {
+  background: #999;
+  box-shadow: none;
+  animation: none;
+}
+
+.neon-disabled .loading-bar-fill {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: none;
+}
+
+.neon-disabled .loading-bar-sweep {
+  display: none;
 }
