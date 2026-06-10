@@ -719,6 +719,40 @@ body {
   margin: 0.25rem 0;
 }
 
+/* Timeline filter bar — All / Projects / Blogs */
+.timeline-filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.timeline-filter {
+  font-family: inherit;
+  font-size: 0.8125rem;
+  letter-spacing: 0.05em;
+  padding: 0.4rem 1rem;
+  color: var(--blog-text-secondary);
+  background: transparent;
+  border: 1px solid var(--blog-border);
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.timeline-filter:hover {
+  color: var(--purple-dim);
+  border-color: rgba(191, 0, 255, 0.4);
+}
+
+.timeline-filter-active {
+  color: var(--purple);
+  border-color: var(--purple);
+  background: rgba(191, 0, 255, 0.08);
+  box-shadow: 0 0 10px rgba(191, 0, 255, 0.15),
+    inset 0 0 10px rgba(191, 0, 255, 0.05);
+}
+
 /* Timeline type prefix — "Blog Post:" / "Project Release:" */
 .timeline-label {
   font-size: 0.7rem;

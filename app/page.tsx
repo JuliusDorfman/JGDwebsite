@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { getTimeline } from "@/lib/timeline";
+import Timeline from "./components/Timeline";
 import SubscribeButton from "./components/SubscribeButton";
 
 export const metadata: Metadata = {
@@ -46,32 +46,7 @@ export default async function Home() {
       </div>
 
       {/* Timeline feed — blog posts, project releases, etc. */}
-      <main className="blog-post-list">
-        {items.length === 0 && (
-          <p className="blog-empty">Nothing here yet. Check back soon.</p>
-        )}
-        {items.map((item) => (
-          <Link key={item.href} href={item.href} className="blog-post-card">
-            <time className="blog-post-date">{item.date}</time>
-            <h2 className="blog-post-title">
-              <span className={`timeline-label timeline-label-${item.type}`}>
-                {item.label}:
-              </span>{" "}
-              {item.title}
-            </h2>
-            <p className="blog-post-description">{item.description}</p>
-            {item.tags.length > 0 && (
-              <div className="blog-post-tags">
-                {item.tags.map((tag) => (
-                  <span key={tag} className="blog-tag">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
-          </Link>
-        ))}
-      </main>
+      <Timeline items={items} />
 
       <SubscribeButton />
     </div>
