@@ -1,0 +1,132 @@
+---
+title: "Expanding the Bahala Calendar's Functionality - Breaking Your Application's Convention"
+description: "Every codebase commits to patterns. Some are load-bearing; some are arbitrary. Some heuristics to differentiate between the two and how to introduce another."
+date: "2026-06-21"
+tags: ["software-engineering", "architecture", "saas", "etl", "system-design", "bahala", "rsvp", "sqlite", "go"]
+---
+
+<ol style={{fontSize: '0.85rem', lineHeight: '1.8', listStyle: 'decimal', paddingLeft: '1.5rem'}}>
+  <li>1. <a href="#conventions-load-bearing-or-otherwise" className="neon-cyan">Conventions: Load-Bearing or Otherwise</a></li>
+  <li>2. <a href="#the-previously-established-convention" className="neon-cyan">The Previously Established Convention</a></li>
+  <li>3. <a href="#the-reevaluation" className="neon-cyan">The Reevaluation</a></li>
+  <li>4. <a href="#implementation-and-conceptual-groundwork" className="neon-cyan">Implementation and Conceptual Groundwork</a></li>
+  <li>5. <a href="#when-to-deviate-in-general" className="neon-cyan">When to Deviate, In General</a></li>
+  <li>6. <a href="#closing" className="neon-cyan">Closing</a></li>
+</ol>
+
+<div className="blog-pull-quote">
+
+<span className="blog-lead-big neon-red">> Every codebase commits to patterns. Some are load-bearing; some are arbitrary.</span>
+</div>
+
+I'll lay out some heuristics to differentiate between the two and how to introduce another.
+
+<div className="blog-neon-rule" />
+
+<span className="blog-section-label" style={{color: '#ff4141'}}>The Setup</span>
+
+<h2 id="conventions-load-bearing-or-otherwise" className="neon-cyan">Conventions: Load-Bearing or Otherwise</h2>
+
+Every application has conventions the codebase commits to early and then quietly expects every future change to respect. The <span className="neon-cyan">good patterns</span> keep the program logic coherent. We cut down the effort dedicated to the <span className="blog-dim">"how would we structure this"</span> discussions. With respect to program logic, the benefits are obvious: the read path is fast, there are fewer points of failure, etc.
+
+Then there are some patterns that <span className="neon-red">ossify around requirements which no longer apply</span>, or around premises the application is set to outgrow. Telling them apart is half the work.
+
+This post is about a new feature request on the <span className="neon-white">Bahala Calendar</span> where a heavily adhered-to convention was broken; what the convention was, what prompted the break, and the heuristics I'd offer to confidently justify my decision.
+
+<div className="blog-neon-rule" />
+
+<span className="blog-section-label" style={{color: '#ff4141'}}>Phase one</span>
+
+<h2 id="the-previously-established-convention" className="neon-cyan">The Previously Established Convention</h2>
+
+<span className="neon-white">Bahala's Calendar</span> consolidates events from various upstream sources: <span className="neon-cyan">Notion</span>, the <span className="neon-cyan">City of Santa Monica's events website</span>, and various local community sites to surface them on one page at <span className="neon-white">calendar.bahala.org</span>. Our ETL is a <span className="neon-cyan">DigitalOcean scheduled job</span> tasked to run nightly. This <span className="neon-cyan">Go container</span> fetches from our sources, normalizes event data, and writes the result to a per-source <span className="neon-cyan">SQLite file</span> hosted by <span className="neon-cyan">DigitalOcean Spaces</span> which rotates the previous SQLite files with fresh data.
+
+<div className="blog-callout">
+
+The load-bearing convention: <span className="neon-cyan">a snapshot ETL with a read-only API.</span>
+
+- <span className="neon-green">One-Way Data Flow</span>
+- <span className="neon-green">Immutable Object-Stored Source of Truth</span>
+- <span className="neon-green">Low Operational Footprint</span>
+- <span className="neon-green">Isolated Per-Source Failure Handling</span>
+
+</div>
+
+This is a <span className="neon-cyan">good and load-bearing convention</span>. Zero concern for runtime writes, stale reads, and real-time data freshness.
+
+<div className="blog-neon-rule" />
+
+<span className="blog-section-label" style={{color: '#ff4141'}}>Phase two</span>
+
+<h2 id="the-reevaluation" className="neon-cyan">The Reevaluation</h2>
+
+Then came <span className="neon-red">RSVPs</span>.
+
+RSVPs were the first feature where the <span className="neon-cyan">user</span>, not the upstream, would be the source of new data. The lack of our existing framework's ability to accommodate our new requirements became obvious when reviewing what RSVPs require juxtaposed to what our existing snapshot model provides:
+
+<div className="blog-callout">
+
+- <span className="neon-cyan">Real-time read-after-write.</span> A user who just RSVP'd needs the next page load to reflect it. Snapshot rotation operates on a nightly cadence or when explicitly triggered.
+- <span className="neon-cyan">Transactional writes.</span> Our snapshot files live in object storage only replacing whole files. Persisting a single RSVP would mean downloading the entire SQLite, inserting one row, and re-uploading the whole thing per submission.
+- <span className="neon-cyan">Bidirectional data flow.</span> Events flow upstream → us. RSVPs flow user → us → Notion. Not conducive to the on-demand nature of looking at a constantly changing list of people data.
+- <span className="neon-cyan">A new ownership model.</span> For events, the API is a relay and communication mechanism; the upstream is the owner of the data. For RSVPs, the API is the authority.
+- <span className="neon-cyan">External side effects.</span> Snapshot writes are a silent file rotation. RSVP writes trigger a confirmation email, generate an ICS attachment, and mirror to Notion. The existing convention had no language for these additional effects.
+
+</div>
+
+These concerns make it apparent that this wasn't a mere <span className="blog-dim">"one more table"</span> requirement. It was a different kind of storage with a different lifecycle, different ownership semantics, and level of communicability.
+
+<div><span className="neon-red">There's our first heuristic flag.</span></div>
+<div><span className="blog-lead-small neon-cyan">This new feature was inherently a kind-difference, not a degree-difference as were previous ETL additions.</span></div>
+
+<div className="blog-neon-rule" />
+
+<span className="blog-section-label" style={{color: '#ff4141'}}>Phase three</span>
+
+<h2 id="implementation-and-conceptual-groundwork" className="neon-cyan">Implementation and Conceptual Groundwork</h2>
+
+Our first convention deviation: <span className="neon-red">One-Way Data Flow.</span> To satisfy our always-up-to-date requirement, we added a <span className="neon-cyan">write path</span>: a new SQLite file the API writes RSVPs into directly. Data now originates inside our system.
+
+Naturally, this begs for a change in primary function for our object storage layer. Our second convention deviation: <span className="neon-red">Immutable Object-Stored Source of Truth.</span> The RSVP data source of truth moves to this <span className="neon-cyan">new local SQLite file</span> to satisfy our transactional write requirement.
+
+We now have our <span className="neon-cyan">always fresh, user origin, data on demand</span> RSVP system built on <span className="neon-white">two surgical convention deviations</span>, and one tiny hit to <span className="blog-dim">Low Operational Footprint</span>.
+
+<div className="blog-neon-rule" />
+
+<span className="blog-section-label" style={{color: '#e8e8e8'}}>The Heuristics</span>
+
+<h2 id="when-to-deviate-in-general" className="neon-cyan">When to Deviate, In General</h2>
+
+A few questions to ask:
+
+<div className="blog-callout">
+
+<span className="neon-cyan">Is the new requirement kind-different, not degree-different?</span> <span className="blog-dim">"Same shape, more of it"</span> — keep the convention. <span className="neon-white">"Different ownership, different lifecycle, different consistency contract"</span> — it's time to start drafting the deviation.
+
+<span className="neon-cyan">What's the cost ratio?</span> Bending the existing convention to cover the new thing has a cost. Adding a parallel pattern has a cost. Compare them honestly.
+
+<span className="neon-cyan">Can you isolate the deviation?</span> The best convention-breaking is contained: a parallel layer with a defined boundary. Otherwise that's just <span className="neon-red">re-architecture</span>.
+
+<span className="neon-cyan">Stay in the same idiom when you can.</span> <span className="neon-green">Soft breaks</span> (same technology, different lifecycle) are far cheaper than <span className="neon-red">hard breaks</span> (new technology). Reach for the soft break first; only escalate when the soft break is impossible.
+
+</div>
+
+<div className="blog-neon-rule" />
+
+<span className="blog-section-label" style={{color: '#e8e8e8'}}>So what now?</span>
+
+<h2 id="closing" className="neon-cyan">Closing</h2>
+
+<span className="neon-cyan">Load-bearing conventions are positive restrictions.</span> They keep ordinary changes cheap and the codebase coherent until a new requirement arrives that the convention can't gracefully absorb.
+
+That's the moment to ask honestly whether the convention still serves you. The cost of asking is much smaller than the cost of <span className="neon-red">forcing the new requirement into the old shape</span> and discovering, later, that the seams gave out.
+
+<div className="blog-neon-rule" />
+
+<div className="blog-pull-quote">
+
+When something doesn't fit the pattern, it's okay to establish a new one.
+
+</div>
+
+<div className="blog-neon-rule" />

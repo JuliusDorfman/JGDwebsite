@@ -1,4 +1,10 @@
-// Co-located loading UI for blog posts. Re-exports the root console loader so
-// clicking into a post from the timeline reliably shows the loading screen
-// while the async server component (MDX) compiles/renders.
-export { default } from "../../loading";
+// Co-located loading UI for blog posts — DISABLED per request.
+// To re-enable the console loader on blog clicks, uncomment the line below
+// and delete the no-op default export.
+// export { default } from "../../loading";
+
+// No-op fallback: keeps a valid loading boundary (so Next doesn't error) while
+// showing nothing during the route transition.
+export default function Loading() {
+  return null;
+}

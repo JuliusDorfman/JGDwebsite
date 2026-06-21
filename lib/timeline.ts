@@ -34,7 +34,7 @@ export const projects: Project[] = [
     title: "Bahala Calendar",
     description:
       "An event consolidator and RSVP platform for the City of Santa Monica. Pulls events from 8 upstream sources (Notion, Eventbrite, scraped venue sites) into a unified per-source SQLite snapshot served by a small Express API, with a React calendar frontend and a Go ETL pipeline running nightly on DigitalOcean App Platform.",
-    date: "2026-10-10",
+    date: "2026-06-20",
     tags: [
       "react",
       "typescript",
